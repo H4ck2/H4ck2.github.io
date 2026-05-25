@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="description" content="All research notes — kyun0 Research">
+ <title>All notes | kyun0 Research</title>
+ <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+ <style>
+ :root {
+ --bg: #0c0c0c;
+ --bg-2: #141414;
+ --bg-3: #1a1a1a;
+ --text: #e8e6e1;
+ --text-2: #a8a5a0;
+ --text-3: #4a4845;
+ --line: #222220;
+ --green: #4ade80;
+ --mono: 'JetBrains Mono', monospace;
+ }
+ *, *::before, *::after { box-sizing: border-box; }
+ html { scroll-behavior: smooth; }
+ body {
+ margin: 0;
+ background: var(--bg);
+ color: var(--text);
+ font-family: var(--mono);
+ font-size: 15px;
+ line-height: 1.8;
+ -webkit-font-smoothing: antialiased;
+ }
+ a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--text-3); transition: color .15s, border-color .15s; }
+ a:hover { color: var(--green); border-color: var(--green); }
+
+ @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+ @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+ @keyframes glitch-subtle {
+ 0%,85%,100% { transform:translate(0,0); clip-path:none; opacity:1; }
+ 87% { transform:translate(-2px,0); clip-path:inset(20% 0 60% 0); opacity:0.9; }
+ 89% { transform:translate(2px,0); clip-path:inset(60% 0 20% 0); opacity:0.9; }
+ 91% { transform:translate(-1px,0); clip-path:inset(40% 0 30% 0); opacity:0.95; }
+ 93% { transform:translate(0,0); clip-path:none; opacity:1; }
+ }
+
+ .page { width:min(680px,calc(100% - 3rem)); margin:0 auto; padding:4rem 0 6rem; }
+
+ .site-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:4rem; animation:fadeIn .3s ease both; }
+ .brand {
+ display: inline-flex; align-items: center; gap: 0.3em;
+ font-size: 15px; font-weight: 500; border-bottom: none; letter-spacing: .02em;
+ animation: glitch-subtle 7s ease-in-out infinite; will-change: transform;
+ background: linear-gradient(90deg, var(--green) 0%, #fff 100%);
+ -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+ }
+ .brand::before {
+ content: '>';
+ background: linear-gradient(90deg, var(--green) 0%, #7aefaa 100%);
+ -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+ animation: blink 2.4s step-end infinite;
+ }
+ .brand:hover { background: linear-gradient(90deg, #fff 0%, var(--green) 100%); -webkit-background-clip: text; background-clip: text; border-bottom: none; }
+ .site-nav div { display:flex; gap:1.5rem; }
+ .site-nav div a { font-size:12px; color:var(--text-2); border-bottom:none; letter-spacing:.05em; }
+ .site-nav div a:hover { color:var(--green); }
+
+ .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); animation: fadeIn .4s .1s ease both; }
+ .kicker { display:block; font-size:11px; color:var(--text-3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:1rem; }
+ .kicker::before { content:'// '; color:var(--green); }
+ h1 { margin:0 0 0.5rem; font-size:1.5rem; font-weight:300; letter-spacing:-0.01em; }
+ .page-header p { margin:0; font-size:13px; color:var(--text-2); }
+
+ .filter-row {
+ display: flex; gap: 0.5rem; flex-wrap: wrap;
+ margin-bottom: 2rem;
+ animation: fadeIn .4s .2s ease both;
+ }
+ .filter-btn {
+ font-family: var(--mono); font-size: 11px;
+ color: var(--text-3); border: 1px solid var(--line);
+ background: none; padding: 0.25rem 0.65rem;
+ border-radius: 2px; cursor: pointer; letter-spacing: 0.04em;
+ transition: color .15s, border-color .15s, background .15s;
+ }
+ .filter-btn:hover, .filter-btn.active {
+ color: var(--green); border-color: var(--green);
+ background: rgba(74,222,128,0.05);
+ }
+
+ .card-list { display: grid; gap: 0.75rem; animation: fadeIn .4s .25s ease both; }
+
+ .note-card {
+ border: 1px solid var(--line); border-radius: 3px;
+ padding: 1.25rem; background: var(--bg-2);
+ transition: border-color .2s, transform .2s, box-shadow .2s;
+ position: relative; overflow: hidden;
+ }
+ .note-card::before {
+ content: ''; position: absolute; top: 0; left: 0; right: 0;
+ height: 1px; background: linear-gradient(90deg, var(--green), transparent);
+ transform: scaleX(0); transform-origin: left;
+ transition: transform .3s cubic-bezier(.22,1,.36,1);
+ }
+ .note-card:hover { border-color: var(--text-3); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+ .note-card:hover::before { transform: scaleX(1); }
+
+ .card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:.75rem; }
+ .card-meta { font-size:10px; color:var(--text-3); letter-spacing:.06em; }
+ .badge { font-size:10px; color:var(--green); border:1px solid rgba(74,222,128,.3); padding:.15rem .5rem; border-radius:2px; letter-spacing:.04em; }
+
+ .note-card h3 { font-size:14px; font-weight:400; margin:0 0 .4rem; color:var(--text); }
+ .note-card h3 a { color:var(--text); border-bottom:1px solid var(--text-3); }
+ .note-card h3 a:hover { color:var(--green); border-color:var(--green); }
+ .note-card > p { font-size:12px; color:var(--text-2); margin:0 0 1rem; line-height:1.7; }
+
+ .card-stats { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); padding-top:.75rem; }
+ .card-stats div { padding-right:1rem; }
+ .s-label { display:block; font-size:9px; color:var(--text-3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.2rem; }
+ .s-val { display:block; font-size:12px; color:#c0bdb8; }
+
+ .empty { font-size:13px; color:var(--text-3); padding: 2rem 0; }
+ .empty::before { content: '// '; color: var(--green); }
+
+ footer { margin-top:4rem; padding-top:1.5rem; border-top:1px solid var(--line); font-size:11px; color:var(--text-3); letter-spacing:.04em; }
+ footer p { margin:0; }
+
+ @media (max-width:600px) {
+ .page { width:calc(100% - 2rem); padding:2.5rem 0 4rem; }
+ .card-stats { grid-template-columns:1fr 1fr; }
+ }
+ </style>
+</head>
+<body>
+ <main class="page">
+
+ <nav class="site-nav">
+ <a class="brand" href="./index.html">kyun0</a>
+ <div>
+ <a href="./index.html#about">about</a>
+ <a href="./index.html#policy">policy</a>
+ <a href="./index.html#contact">contact</a>
+ </div>
+ </nav>
+
+ <div class="page-header">
+ <span class="kicker">research notes</span>
+ <h1>All notes</h1>
+ <p>Vulnerability research published after vendor coordination and patch availability.</p>
+ </div>
+
+ <div class="filter-row">
+ <button class="filter-btn active" data-filter="all">all</button>
+ <button class="filter-btn" data-filter="web">web</button>
+ <button class="filter-btn" data-filter="mobile">mobile</button>
+ <button class="filter-btn" data-filter="binary">binary</button>
+ <button class="filter-btn" data-filter="cloud">cloud</button>
+ </div>
+
+ <div class="card-list" id="card-list">
+ <div class="note-card" data-category="web">
+ <div class="card-top">
+ <span class="card-meta">web · May 2026</span>
+ <span class="badge">CVE-YYYY-NNNNN</span>
+ </div>
+ <h3><a href="./research/example-vulnerability-note.html">Example patched vulnerability note</a></h3>
+ <p>Public note format for a vendor-coordinated vulnerability after a fix or disclosure approval.</p>
+ <div class="card-stats">
+ <div><span class="s-label">Status</span><span class="s-val">Patched</span></div>
+ <div><span class="s-label">Audience</span><span class="s-val">Vendors</span></div>
+ <div><span class="s-label">Detail</span><span class="s-val">Safe public record</span></div>
+ </div>
+ </div>
+ <div class="note-card" data-category="mobile">
+ <div class="card-top">
+ <span class="card-meta">mobile · May 2026</span>
+ <span class="badge">CVE-YYYY-NNNNN</span>
+ </div>
+ <h3><a href="./research/example-vulnerability-note.html">Example patched vulnerability note</a></h3>
+ <p>Public note format for a vendor-coordinated vulnerability after a fix or disclosure approval.</p>
+ <div class="card-stats">
+ <div><span class="s-label">Status</span><span class="s-val">Patched</span></div>
+ <div><span class="s-label">Audience</span><span class="s-val">Vendors</span></div>
+ <div><span class="s-label">Detail</span><span class="s-val">Safe public record</span></div>
+ </div>
+ </div>
+ </div>
+
+ <footer><p>kyun0 Research · public details are limited until disclosure is safe.</p></footer>
+
+ </main>
+
+ <script>
+ const btns = document.querySelectorAll('.filter-btn');
+ const cards = document.querySelectorAll('.note-card');
+ const list = document.getElementById('card-list');
+
+ btns.forEach(btn => {
+ btn.addEventListener('click', () => {
+ btns.forEach(b => b.classList.remove('active'));
+ btn.classList.add('active');
+ const filter = btn.dataset.filter;
+ let visible = 0;
+ cards.forEach(card => {
+ const show = filter === 'all' || card.dataset.category === filter;
+ card.style.display = show ? '' : 'none';
+ if (show) visible++;
+ });
+ const existing = list.querySelector('.empty');
+ if (existing) existing.remove();
+ if (visible === 0) {
+ const empty = document.createElement('p');
+ empty.className = 'empty';
+ empty.textContent = 'no notes in this category yet.';
+ list.appendChild(empty);
+ }
+ });
+ });
+ </script>
+</body>
+</html>
+
