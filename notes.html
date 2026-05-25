@@ -63,12 +63,14 @@
  .site-nav div a { font-size:12px; color:var(--text-2); border-bottom:none; letter-spacing:.05em; }
  .site-nav div a:hover { color:var(--green); }
 
+ /* HEADER */
  .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); animation: fadeIn .4s .1s ease both; }
  .kicker { display:block; font-size:11px; color:var(--text-3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:1rem; }
  .kicker::before { content:'// '; color:var(--green); }
  h1 { margin:0 0 0.5rem; font-size:1.5rem; font-weight:300; letter-spacing:-0.01em; }
  .page-header p { margin:0; font-size:13px; color:var(--text-2); }
 
+ /* FILTER */
  .filter-row {
  display: flex; gap: 0.5rem; flex-wrap: wrap;
  margin-bottom: 2rem;
@@ -86,6 +88,7 @@
  background: rgba(74,222,128,0.05);
  }
 
+ /* CARD LIST */
  .card-list { display: grid; gap: 0.75rem; animation: fadeIn .4s .25s ease both; }
 
  .note-card {
@@ -117,6 +120,7 @@
  .s-label { display:block; font-size:9px; color:var(--text-3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.2rem; }
  .s-val { display:block; font-size:12px; color:#c0bdb8; }
 
+ /* EMPTY */
  .empty { font-size:13px; color:var(--text-3); padding: 2rem 0; }
  .empty::before { content: '// '; color: var(--green); }
 
@@ -153,6 +157,7 @@
  <button class="filter-btn" data-filter="mobile">mobile</button>
  <button class="filter-btn" data-filter="binary">binary</button>
  <button class="filter-btn" data-filter="cloud">cloud</button>
+ <button class="filter-btn" data-filter="etc">etc</button>
  </div>
 
  <div class="card-list" id="card-list">
@@ -204,6 +209,7 @@
  card.style.display = show ? '' : 'none';
  if (show) visible++;
  });
+ // empty state
  const existing = list.querySelector('.empty');
  if (existing) existing.remove();
  if (visible === 0) {
