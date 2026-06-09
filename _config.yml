@@ -1,0 +1,6 @@
+title: kyun0 Research
+description: Coordinated vulnerability disclosure and security research notes.
+url: "https://h4ck2.github.io"
+markdown: kramdown
+exclude:
+  - README.md

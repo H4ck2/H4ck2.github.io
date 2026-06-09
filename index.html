@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -238,8 +241,8 @@
 
     <div class="status-row g5">
       <div><span class="s-label">Status</span><span class="s-val">Actively researching</span></div>
-      <div><span class="s-label">Notes published</span><span class="s-val">3</span></div>
-      <div><span class="s-label">Last updated</span><span class="s-val">June 2026</span></div>
+      <div><span class="s-label">Notes published</span><span class="s-val">{{ site.data.research.size }}</span></div>
+      <div><span class="s-label">Last updated</span><span class="s-val">{{ site.data.research[0].display_month }}</span></div>
     </div>
 
     <section id="about">
@@ -255,48 +258,24 @@
 
     <section id="notes">
       <h2>Research notes</h2>
-      <div class="note-card">
+      {% assign research_notes = site.data.research | sort: "date" | reverse %}
+      {% for note in research_notes limit:3 %}
+      <div class="note-card"{% unless forloop.first %} style="margin-top:0.75rem;"{% endunless %}>
         <div class="card-top">
-          <span class="card-meta">coordinated disclosure · June 2026</span>
-          <span class="badge">CVE-2026-48020</span>
+          <span class="card-meta">{{ note.meta_index }}</span>
+          <span class="badge">{{ note.badge }}</span>
         </div>
-        <h3><a href="./research/traefik-strip-prefix-route-level-auth-bypass.html">Traefik StripPrefix route-level auth bypass</a></h3>
-        <p>Public note for a path normalization issue in Traefik where <code>StripPrefix</code> middleware could affect route-level authorization boundaries.</p>
+        <h3><a href="{{ note.url }}">{{ note.title }}</a></h3>
+        <p>{{ note.description }}</p>
         <div class="card-stats">
-          <div><span class="s-label">Status</span><span class="s-val">Patched / Public</span></div>
-          <div><span class="s-label">Severity</span><span class="s-val">High</span></div>
-          <div><span class="s-label">Detail</span><span class="s-val">GHSA-xf64-8mw2-4gr2</span></div>
+          <div><span class="s-label">{{ note.status_label }}</span><span class="s-val">{{ note.status }}</span></div>
+          <div><span class="s-label">{{ note.metric2_label_index }}</span><span class="s-val">{{ note.metric2_index }}</span></div>
+          <div><span class="s-label">{{ note.detail_label }}</span><span class="s-val">{{ note.detail }}</span></div>
         </div>
       </div>
-      <div class="note-card" style="margin-top:0.75rem;">
-        <div class="card-top">
-          <span class="card-meta">open-source hardening · June 2026</span>
-          <span class="badge">MERGED</span>
-        </div>
-        <h3><a href="./research/ray-pr63786-security-hardening.html">Ray runtime_env zip extraction hardening</a></h3>
-        <p>Open-source hardening contribution that improved Ray's <code>runtime_env</code> zip extraction path validation through upstream PR #63786.</p>
-        <div class="card-stats">
-          <div><span class="s-label">Status</span><span class="s-val">Merged</span></div>
-          <div><span class="s-label">Class</span><span class="s-val">Hardening</span></div>
-          <div><span class="s-label">Detail</span><span class="s-val">PR #63786</span></div>
-        </div>
-      </div>
+      {% endfor %}
 
-      <div class="note-card" style="margin-top:0.75rem;">
-        <div class="card-top">
-          <span class="card-meta">coordinated disclosure · May 2026</span>
-          <span class="badge">WITHHELD</span>
-        </div>
-        <h3><a href="./research/access-control-boundary-issue.html">Access control boundary issue</a></h3>
-        <p>Public placeholder for a Broken Access Control finding. Vendor and product details remain withheld.</p>
-        <div class="card-stats">
-          <div><span class="s-label">Status</span><span class="s-val">Patch in progress</span></div>
-          <div><span class="s-label">Class</span><span class="s-val">Broken Access Control</span></div>
-          <div><span class="s-label">Detail</span><span class="s-val">Withheld</span></div>
-        </div>
-      </div>
-
-      <a href="./notes.html" class="all-notes-link">→ all notes (3)</a>
+      <a href="./notes.html" class="all-notes-link">→ all notes ({{ site.data.research.size }})</a>
     </section>
 
     <section id="policy">
