@@ -199,22 +199,21 @@ layout: null
     <div class="page-header">
       <span class="kicker">research notes</span>
       <h1>All notes</h1>
-      <p>Vulnerability research published after vendor coordination and patch availability.</p>
+      <p>Vulnerability research, coordinated disclosures, and open-source security hardening.</p>
     </div>
 
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all">all</button>
-      <button class="filter-btn" data-filter="web">web</button>
-      <button class="filter-btn" data-filter="mobile">mobile</button>
-      <button class="filter-btn" data-filter="binary">binary</button>
-      <button class="filter-btn" data-filter="cloud">cloud</button>
-      <button class="filter-btn" data-filter="etc">etc</button>
+      <button class="filter-btn" data-filter="high">high</button>
+      <button class="filter-btn" data-filter="medium">medium</button>
+      <button class="filter-btn" data-filter="low">low</button>
+      <button class="filter-btn" data-filter="not-rated">not rated</button>
     </div>
 
     <div class="card-list" id="card-list">
       {% assign research_notes = site.data.research | sort: "date" | reverse %}
       {% for note in research_notes %}
-      <div class="note-card" data-category="{{ note.category }}">
+      <div class="note-card" data-severity="{{ note.severity_filter }}">
         <div class="card-top">
           <span class="card-meta">{{ note.meta_notes }}</span>
           <span class="badge">{{ note.badge }}</span>
@@ -253,7 +252,7 @@ layout: null
         const filter = btn.dataset.filter;
         let visible = 0;
         cards.forEach(card => {
-          const show = filter === 'all' || card.dataset.category === filter;
+          const show = filter === 'all' || card.dataset.severity === filter;
           card.style.display = show ? '' : 'none';
           if (show) visible++;
         });
@@ -263,7 +262,7 @@ layout: null
         if (visible === 0) {
           const empty = document.createElement('p');
           empty.className = 'empty';
-          empty.textContent = 'no notes in this category yet.';
+          empty.textContent = 'no notes at this severity yet.';
           list.appendChild(empty);
         }
       });

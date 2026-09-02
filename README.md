@@ -26,23 +26,25 @@ This site is built by GitHub Pages/Jekyll.
    - title: "Example research note"
      date: "2026-06-09"
      display_month: "June 2026"
-     meta_index: "coordinated disclosure · June 2026"
-     meta_notes: "web · June 2026"
-     category: "web"
+     meta_index: "vulnerability research · June 2026"
+     meta_notes: "vulnerability research · June 2026"
+     severity_filter: "high"
      badge: "PUBLIC"
      url: "./research/example-research-note.html"
      description: "Short public description shown on cards."
      status_label: "Status"
      status: "Public"
-     metric2_label_index: "Class"
-     metric2_index: "Web Security"
-     metric2_label_notes: "Category"
-     metric2_notes: "Web"
-     detail_label: "Detail"
-     detail: "Short detail"
+     metric2_label_index: "Severity"
+     metric2_index: "High"
+     metric2_label_notes: "Severity"
+     metric2_notes: "High"
+     detail_label: "Reference"
+     detail: "CVE-YYYY-NNNNN"
    ```
 
 3. Keep `date` in `YYYY-MM-DD` format. Cards are sorted by this field.
+   Use one normalized `severity_filter` value: `high`, `medium`, `low`, or
+   `not-rated` for hardening work without a vulnerability severity.
 
 ## Publication notes
 
