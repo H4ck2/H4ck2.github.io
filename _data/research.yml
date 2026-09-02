@@ -28,9 +28,9 @@
   status_label: "Status"
   status: "Patched / Public"
   metric2_label_index: "Severity"
-  metric2_index: "High"
+  metric2_index: "High (7.8)"
   metric2_label_notes: "Severity"
-  metric2_notes: "High"
+  metric2_notes: "High (7.8)"
   detail_label: "Reference"
   detail: "CVE-2026-48020"
 
