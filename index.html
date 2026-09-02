@@ -138,16 +138,18 @@ layout: null
     .tags span { font-size:11px; color:#e8e6e1; border:1px solid #3a3a38; padding:.2rem .5rem; border-radius:2px; letter-spacing:.04em; transition:color .15s,border-color .15s; }
     .tags span:hover { color:var(--green); border-color:var(--green); }
 
-    .note-card { border:1px solid var(--line); border-radius:3px; padding:1.25rem; background:var(--bg-2); transition:border-color .2s,transform .2s,box-shadow .2s; position:relative; overflow:hidden; }
+    .note-card { display:block; color:inherit; text-decoration:none; cursor:pointer; border:1px solid var(--line); border-radius:3px; padding:1.25rem; background:var(--bg-2); transition:border-color .2s,transform .2s,box-shadow .2s; position:relative; overflow:hidden; }
     .note-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,var(--green),transparent); transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.22,1,.36,1); }
     .note-card:hover { border-color:var(--text-3); transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,0,0,.4); }
     .note-card:hover::before { transform:scaleX(1); }
+    .note-card:focus-visible { outline:2px solid var(--green); outline-offset:3px; border-color:var(--green); }
+    .note-card:focus-visible::before { transform:scaleX(1); }
     .card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:.85rem; }
     .card-meta { font-size:10px; color:#a8a5a0; letter-spacing:.06em; }
     .badge { font-size:10px; color:var(--green); border:1px solid rgba(74,222,128,.3); padding:.15rem .5rem; border-radius:2px; letter-spacing:.04em; }
     .note-card h3 { font-size:15px; font-family:var(--sans); font-weight:400; margin:0 0 .5rem; color:var(--text); }
-    .note-card h3 a { color:var(--text); border-bottom:1px solid var(--text-3); }
-    .note-card h3 a:hover { color:var(--green); border-color:var(--green); }
+    .note-card .card-title { color:var(--text); border-bottom:1px solid var(--text-3); transition:color .15s,border-color .15s; }
+    .note-card:hover .card-title, .note-card:focus-visible .card-title { color:var(--green); border-color:var(--green); }
     .note-card > p { font-size:14px; font-family:var(--sans); font-weight:300; color:var(--text-2); margin:0 0 1rem; line-height:1.8; }
     .card-stats { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); padding-top:.85rem; }
     .card-stats div { padding-right:1rem; }
@@ -266,19 +268,19 @@ layout: null
       <h2>Research notes</h2>
       {% assign research_notes = site.data.research | sort: "date" | reverse %}
       {% for note in research_notes limit:3 %}
-      <div class="note-card"{% unless forloop.first %} style="margin-top:0.75rem;"{% endunless %}>
+      <a class="note-card" href="{{ note.url }}" aria-label="Read {{ note.title | escape }}"{% unless forloop.first %} style="margin-top:0.75rem;"{% endunless %}>
         <div class="card-top">
           <span class="card-meta">{{ note.meta_index }}</span>
           <span class="badge">{{ note.badge }}</span>
         </div>
-        <h3><a href="{{ note.url }}">{{ note.title }}</a></h3>
+        <h3><span class="card-title">{{ note.title }}</span></h3>
         <p>{{ note.description }}</p>
         <div class="card-stats">
           <div><span class="s-label">{{ note.status_label }}</span><span class="s-val">{{ note.status }}</span></div>
           <div><span class="s-label">{{ note.metric2_label_index }}</span><span class="s-val">{{ note.metric2_index }}</span></div>
           <div><span class="s-label">{{ note.detail_label }}</span><span class="s-val">{{ note.detail }}</span></div>
         </div>
-      </div>
+      </a>
       {% endfor %}
 
       <a href="./notes.html" class="all-notes-link">→ all notes ({{ site.data.research.size }})</a>
